@@ -27,7 +27,7 @@
 - (NSUInteger)unsignedIntegerValue
 {
     NSUInteger value;
-    sscanf([self UTF8String], "%u", &value);
+    sscanf([self UTF8String], "%lu", &value);
     return value;
 }
 

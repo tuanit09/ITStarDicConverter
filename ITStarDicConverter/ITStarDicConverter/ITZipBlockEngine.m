@@ -23,7 +23,7 @@
 {
     [target zipEngineWillZipDictionary:dictionary];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSData *inputData = [NSData dataWithContentsOfFile:dictionary.dataFilePath];
+        NSData *inputData = [NSData dataWithContentsOfURL:dictionary.dataFileURL];
         NSMutableData *outputData = [[NSMutableData alloc] initWithCapacity:[inputData length]];
         NSMutableArray *zipBlockEntries = [[NSMutableArray alloc] initWithCapacity:[inputData length] / maxDataBlockSize ];
         ITZipBlockEntry *zipEntry;
@@ -68,7 +68,7 @@
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:zipDic];
 
     // Apend info file
-    NSData *infoData = [[NSData dataWithContentsOfFile:dictionary.infoFilePath] compressedData];
+    NSData *infoData = [[NSData dataWithContentsOfURL:dictionary.indexFileURL] compressedData];
     [archiver encodeBytes:infoData.bytes length:[infoData length] forKey:kInfoFileKey];
 
     // Apend indexFile

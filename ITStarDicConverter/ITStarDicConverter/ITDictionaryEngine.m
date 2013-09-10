@@ -83,7 +83,7 @@
 
 + (NSString *)meaningForEntry:(ITWordEntry *)entry inDictionary:(ITDictionary *)dictionary
 {
-    NSFileHandle *file = [NSFileHandle fileHandleForReadingAtPath:dictionary.dataFilePath];
+    NSFileHandle *file = [NSFileHandle fileHandleForReadingFromURL:dictionary.dataFileURL error:nil];
     [file seekToFileOffset:entry.offset];
     NSData *meaningData = [file readDataOfLength:entry.length];
     [file closeFile];

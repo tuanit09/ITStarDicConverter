@@ -51,11 +51,10 @@
 }
 
 - (IBAction)convert:(id)sender {
-    NSString *infoFile = [[NSBundle mainBundle] pathForResource:@"en_vi" ofType:@"ifo"];
-    NSString *indexFile = [[NSBundle mainBundle] pathForResource:@"en_vi" ofType:@"idx"];
-    NSString *dataFile = [[NSBundle mainBundle] pathForResource:@"en_vi" ofType:@"dict"];
-    ITDictionary *dic = [[ITDictionary alloc] initWithInfoFile:infoFile indexFile:indexFile dataFile:dataFile synFile:nil];
-    [dic loadDictionaryForTarget:self];
+    if (self.inURL && self.outURL) {
+        ITDictionary *dic = [[ITDictionary alloc] initWithDictionaryFolder:self.inURL];
+        [dic loadDictionaryForTarget:self];
+    }
 }
 
 #pragma -mark Dictionary Delegate
@@ -66,8 +65,6 @@
 
 -(void)didLoadDictionary:(ITDictionary *)dic
 {
-
-    
     [ITDictionaryEngine shortDictionary:dic forTarget:self];
 }
 
@@ -89,7 +86,7 @@
 }
 -(void)zipEngineDidZipDictionary:(id)dictionary withData:(NSData *)dicZipData
 {
-    NSURL *destinationURL = [self.outURL URLByAppendingPathExtension:@"dict.itz"];
+    NSURL *destinationURL = [self.outURL URLByAppendingPathComponent:@"dict.itz"];
     [dicZipData writeToURL:destinationURL atomically:YES];
     self.convertingLabel.stringValue = @"done";
 }
