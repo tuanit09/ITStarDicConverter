@@ -143,6 +143,8 @@
 #warning incompleted
 //    _date   = [infoString substringBetweenBeinKey:kInfoDateKey endKey:kInfoLineEndKey];
     _sameTypeSequence = [infoString substringBetweenBeinKey:kInfoSameTypeSequenceKey endKey:kInfoLineEndKey];
+
+    NSLog(@"word count %lu", _wordCount);
 }
 
 /**

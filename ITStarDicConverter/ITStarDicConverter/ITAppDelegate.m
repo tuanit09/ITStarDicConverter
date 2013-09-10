@@ -66,6 +66,8 @@
 
 -(void)didLoadDictionary:(ITDictionary *)dic
 {
+
+    
     [ITDictionaryEngine shortDictionary:dic forTarget:self];
 }
 
@@ -85,22 +87,10 @@
 {
     self.convertingLabel.stringValue = @"ziping";
 }
--(void)zipEngineDidZipDictionary:(id)dictionary withData:(NSData *)data zipEntries:(NSArray *)zipEntries
+-(void)zipEngineDidZipDictionary:(id)dictionary withData:(NSData *)dicZipData
 {
-    ITDictionary *dic = (ITDictionary *)dictionary;
-
-    // Zip InfoFile:
-    NSData *zipInfo = [[NSData dataWithContentsOfFile:dic.infoFilePath] compressedData];
-
-    // Zip Index file:
-    NSMutableData *mutableData = [[NSMutableData alloc] init];
-    for (ITWordEntry *entry in dic.wordEntries) {
-        [mutableData appendData:[entry data]];
-    }
-    NSData *zipIndex = [mutableData compressedData];
-
-    // Zip
-
+    NSURL *destinationURL = [self.outURL URLByAppendingPathExtension:@"dict.itz"];
+    [dicZipData writeToURL:destinationURL atomically:YES];
     self.convertingLabel.stringValue = @"done";
 }
 

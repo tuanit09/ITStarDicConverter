@@ -24,8 +24,12 @@
 
 -(NSData *)data
 {
-    dfs
-    return nil;
+    NSMutableData *data = [[NSMutableData alloc] init];
+    [data appendBytes:&_zipOffset length:sizeof(uint32)];
+    [data appendBytes:&_dataOffset length:sizeof(uint32)];
+    [data appendBytes:&_zipSize length:sizeof(uint32)];
+    [data appendBytes:&_dataSize length:sizeof(uint32)];
+    return data;
 }
 
 @end

@@ -91,6 +91,7 @@
     [archiver encodeBytes:blockEntriesData.bytes length:[blockEntriesData length] forKey:kBlockEntriesFileKey];
 
     //
+    [archiver finishEncoding];
 
     return zipDic;
 }
