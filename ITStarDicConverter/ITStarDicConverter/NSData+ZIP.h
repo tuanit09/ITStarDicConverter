@@ -12,8 +12,5 @@
 
 -(NSData *)compressedData;
 -(NSData *)uncompressedData;
--(NSData *)compressedDataForFirstPackage;
--(NSData *)compressedDataForMiddlePackage;
--(NSData *)compressedDataForLastPackage;
 
 @end

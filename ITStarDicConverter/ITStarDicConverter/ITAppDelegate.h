@@ -13,7 +13,7 @@
 @property (assign) IBOutlet NSWindow *window;
 
 @property (weak) IBOutlet NSTextFieldCell *convertingLabel;
-@property (weak) IBOutlet NSLevelIndicator *convertingProgressBar;
+@property (weak) IBOutlet NSProgressIndicator *activityIndicator;
 
 @property (weak) IBOutlet NSTextField *inTextBox;
 

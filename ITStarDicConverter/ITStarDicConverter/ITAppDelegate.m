@@ -60,35 +60,55 @@
 #pragma -mark Dictionary Delegate
 - (void)willLoadDictionary:(ITDictionary *)dic
 {
-    
+    self.convertingLabel.stringValue = @"loading dictionary......";
+    [self.activityIndicator startAnimation:nil];
 }
 
 -(void)didLoadDictionary:(ITDictionary *)dic
 {
+    self.convertingLabel.stringValue = @"dictionary loaded";
+    [self.activityIndicator stopAnimation:nil];
     [ITDictionaryEngine shortDictionary:dic forTarget:self];
 }
 
 #pragma -mark Dictionary Engine Delegate
 -(void)dictionaryEngineWillShortDictionary:(ITDictionary *)dictionary
 {
-
+    self.convertingLabel.stringValue = @"shorting dictionary......";
+    [self.activityIndicator startAnimation:nil];
 }
 
 -(void)dictionaryEngineDidShortDictionary:(ITDictionary *)source withResult:(ITDictionary *)destination
 {
+    self.convertingLabel.stringValue = @"dictionary shorted";
+    [self.activityIndicator stopAnimation:nil];
     [ITZipBlockEngine zipDictionary:destination threshold:kDataSizeLimit forTarget:self];
 }
 
 #pragma -mark Zip Engine Delegate
 -(void)zipEngineWillZipDictionary:(id)dictionary
 {
-    self.convertingLabel.stringValue = @"ziping";
+    self.convertingLabel.stringValue = @"zipping dictionary......";
+    [self.activityIndicator startAnimation:nil];
 }
 -(void)zipEngineDidZipDictionary:(id)dictionary withData:(NSData *)dicZipData
 {
+    self.convertingLabel.stringValue = @"dictionary zipped";
+    [self.activityIndicator stopAnimation:nil];
     NSURL *destinationURL = [self.outURL URLByAppendingPathComponent:@"dict.itz"];
     [dicZipData writeToURL:destinationURL atomically:YES];
+    [ITZipBlockEngine parseZipDataURL:destinationURL toFolder:self.outURL forTarget:self];
     self.convertingLabel.stringValue = @"done";
+}
+-(void)zipEngineWillParseDataURL:(NSURL *)zipDicURL
+{
+    self.convertingLabel.stringValue = @"parsing dictionary......";
+    [self.activityIndicator startAnimation:nil];
+}
+-(void)zipEngineDidParseDataURL:(NSURL *)zipDicURL
+{
+    self.convertingLabel.stringValue = @"dictionary parsed";
+    [self.activityIndicator stopAnimation:nil];
 }
 
 @end

@@ -22,6 +22,7 @@
 		D9D3C6DF17DE1030007FB7B3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D3C6DE17DE1030007FB7B3 /* libz.dylib */; };
 		D9D3C6E217DEA829007FB7B3 /* ITZipBlockEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D3C6E117DEA829007FB7B3 /* ITZipBlockEntry.m */; };
 		D9D3C6E517DEA8CB007FB7B3 /* ITZipBlockEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D9D3C6E417DEA8CB007FB7B3 /* ITZipBlockEngine.m */; };
+		D9E09C8117E0496400A18391 /* NSString+ZipFileName.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E09C8017E0496400A18391 /* NSString+ZipFileName.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,8 @@
 		D9D3C6E117DEA829007FB7B3 /* ITZipBlockEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITZipBlockEntry.m; sourceTree = "<group>"; };
 		D9D3C6E317DEA8CB007FB7B3 /* ITZipBlockEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITZipBlockEngine.h; sourceTree = "<group>"; };
 		D9D3C6E417DEA8CB007FB7B3 /* ITZipBlockEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITZipBlockEngine.m; sourceTree = "<group>"; };
+		D9E09C7F17E0496300A18391 /* NSString+ZipFileName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZipFileName.h"; sourceTree = "<group>"; };
+		D9E09C8017E0496400A18391 /* NSString+ZipFileName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZipFileName.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +133,8 @@
 				D9D3C6E117DEA829007FB7B3 /* ITZipBlockEntry.m */,
 				D9D3C6E317DEA8CB007FB7B3 /* ITZipBlockEngine.h */,
 				D9D3C6E417DEA8CB007FB7B3 /* ITZipBlockEngine.m */,
+				D9E09C7F17E0496300A18391 /* NSString+ZipFileName.h */,
+				D9E09C8017E0496400A18391 /* NSString+ZipFileName.m */,
 				D9D3C6B317DDD569007FB7B3 /* MainMenu.xib */,
 				D9D3C6A517DDD568007FB7B3 /* Supporting Files */,
 			);
@@ -223,6 +228,7 @@
 				D9D3C6D617DE0BEF007FB7B3 /* NSString+Value.m in Sources */,
 				D9D3C6E217DEA829007FB7B3 /* ITZipBlockEntry.m in Sources */,
 				D9D3C6E517DEA8CB007FB7B3 /* ITZipBlockEngine.m in Sources */,
+				D9E09C8117E0496400A18391 /* NSString+ZipFileName.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

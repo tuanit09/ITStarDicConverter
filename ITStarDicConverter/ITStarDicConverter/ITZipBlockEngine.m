@@ -11,11 +11,13 @@
 #import "ITZipBlockEntry.h"
 #import "ITWordEntry.h"
 #import "NSData+ZIP.h"
+#import "NSString+ZipFileName.h"
 
 #define kInfoFileKey            @"infoFileKey"
 #define kIndexFileKey           @"indexFileKey"
 #define kBlockedDataFileKey     @"blockedDataFileKey"
 #define kBlockEntriesFileKey      @"zipEntriesFileKey"
+#define kSynFileKey                 @"synFileKey"
 
 @implementation ITZipBlockEngine
 
@@ -94,6 +96,55 @@
     [archiver finishEncoding];
 
     return zipDic;
+}
+
++(void)parseZipDataURL:(NSURL *)zipDicURL toFolder:(NSURL *)folderURL forTarget:(id<ITZipBlockEngineDelegate>)target
+{
+    [target zipEngineWillParseDataURL:zipDicURL];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:[NSData dataWithContentsOfURL:zipDicURL]];
+        NSString *fileName = [[zipDicURL pathComponents] lastObject];
+
+        NSURL *infoFileURL = [folderURL URLByAppendingPathComponent:[fileName infoFileName]];
+        NSURL *indexFileURL = [folderURL URLByAppendingPathComponent:[fileName indexFileName]];
+        NSURL *dataBlockFileURL = [folderURL URLByAppendingPathComponent:[fileName dataFileName]];
+        NSURL *blockEntryFileURL = [folderURL URLByAppendingPathComponent:[fileName blockEntryFileName]];
+        NSURL *synFileURL = [folderURL URLByAppendingPathComponent: [fileName synFileName]];
+
+        NSUInteger length;
+        Byte *bytes;
+
+        bytes = (Byte *)[unarchiver decodeBytesForKey:kInfoFileKey returnedLength:&length];
+        [self writeBytes:bytes length:length toURL:infoFileURL];
+
+        bytes = (Byte *)[unarchiver decodeBytesForKey:kIndexFileKey returnedLength:&length];
+        [self writeBytes:bytes length:length toURL:indexFileURL];
+
+
+        bytes = (Byte *)[unarchiver decodeBytesForKey:kBlockedDataFileKey returnedLength:&length];
+        [self writeBytes:bytes length:length toURL:dataBlockFileURL];
+
+        bytes = (Byte *)[unarchiver decodeBytesForKey:kBlockEntriesFileKey returnedLength:&length];
+        [self writeBytes:bytes length:length toURL:blockEntryFileURL];
+
+        bytes = (Byte *)[unarchiver decodeBytesForKey:kSynFileKey returnedLength:&length];
+        [self writeBytes:bytes length:length toURL:synFileURL];
+
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [target zipEngineDidParseDataURL:zipDicURL];
+        });
+    });
+}
+
++(BOOL)writeBytes:(Byte *)bytes length:(NSUInteger)length toURL:(NSURL *)fileURL
+{
+    if (bytes && length)
+    {
+        NSData *data = [NSData dataWithBytes:bytes length:length];
+        return [data writeToURL:fileURL atomically:YES];
+    }
+    return NO;
 }
 
 @end

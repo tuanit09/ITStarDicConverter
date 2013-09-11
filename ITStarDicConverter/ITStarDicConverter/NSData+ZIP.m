@@ -32,7 +32,7 @@
         return nil;
 
     strm.next_in = (Bytef *)self.bytes;
-    strm.avail_in = [self length];
+    strm.avail_in = (uInt)[self length];
 
     NSMutableData *compressedData = [[NSMutableData alloc] initWithCapacity:[self length]];
     do {
@@ -64,7 +64,7 @@
     if (ret != Z_OK)
         return nil;
 
-    strm.avail_in = [self length];
+    strm.avail_in = (uInt)[self length];
     strm.next_in = (Bytef *)self.bytes;
 
     NSMutableData *uncompressedData = [[NSMutableData alloc] initWithCapacity:[self length] *2];

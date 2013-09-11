@@ -16,11 +16,14 @@
 @required
 -(void)zipEngineWillZipDictionary:(id)dictionary;
 -(void)zipEngineDidZipDictionary:(id)dictionary withData:(NSData *)dicZipData;
+-(void)zipEngineWillParseDataURL:(NSURL *)zipDicURL;
+-(void)zipEngineDidParseDataURL:(NSURL *)zipDicURL;
 
 @end
 
 @interface ITZipBlockEngine : NSObject
 
 +(void)zipDictionary:(ITDictionary *)dictionary threshold:(NSInteger)maxDataBlockSize forTarget:(id<ITZipBlockEngineDelegate>)target;
++(void)parseZipDataURL:(NSURL *)zipDicURL toFolder:(NSURL *)folderURL forTarget:(id<ITZipBlockEngineDelegate>)target;
 
 @end
