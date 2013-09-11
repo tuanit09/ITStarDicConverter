@@ -10,9 +10,9 @@
 
 @interface ITWordEntry : NSObject
 
-@property (strong, readonly, nonatomic)       NSString        *word;      // word
-@property (assign, readonly, nonatomic)       NSUInteger      offset;     // offset in data file
-@property (assign, readonly, nonatomic)       NSUInteger      length;     // length to retrieve in data file
+@property (strong, nonatomic)       NSString        *word;      // word
+@property (assign, nonatomic)       NSUInteger      offset;     // offset in data file
+@property (assign, nonatomic)       NSUInteger      length;     // length to retrieve in data file
 
 -(id)initWithWord:(NSString *)word offset:(NSUInteger)offset length:(NSUInteger)length;
 -(NSData *)data;

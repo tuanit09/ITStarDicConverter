@@ -35,7 +35,6 @@
         NSUInteger accumulatedSize;
         NSData *zipBlock;
         NSUInteger accunDataSize =0;
-
         while (entryIndex < [dictionary.wordEntries count]) {
             accumulatedSize = 0;
             beginEntry = [dictionary.wordEntries objectAtIndex:entryIndex];

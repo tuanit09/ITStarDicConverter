@@ -26,8 +26,10 @@
     Byte byte = '\0'; // end of word
     [data appendData:[self.word dataUsingEncoding:NSUTF8StringEncoding]];
     [data appendBytes:&byte length:sizeof(Byte)];
-    [data appendData:[NSData dataWithBytes:&_offset length:sizeof(uint32)]];
-    [data appendData:[NSData dataWithBytes:&_length length:sizeof(uint32)]];
+    uint32_t offset = (uint32_t)_offset;
+    uint32_t length = (uint32_t)_length;
+    [data appendData:[NSData dataWithBytes:&offset length:sizeof(uint32_t)]];
+    [data appendData:[NSData dataWithBytes:&length length:sizeof(uint32_t)]];
     return data;
 }
 

@@ -25,10 +25,15 @@
 -(NSData *)data
 {
     NSMutableData *data = [[NSMutableData alloc] init];
-    [data appendBytes:&_zipOffset length:sizeof(uint32)];
-    [data appendBytes:&_dataOffset length:sizeof(uint32)];
-    [data appendBytes:&_zipSize length:sizeof(uint32)];
-    [data appendBytes:&_dataSize length:sizeof(uint32)];
+
+    uint32_t zipOffset = (uint32_t)_zipOffset;
+    uint32_t dataOffset = (uint32_t)_dataOffset;
+    uint32_t zipSize = (uint32_t)_zipSize;
+    uint32_t dataSize = (uint32_t)_dataSize;
+    [data appendBytes:&zipOffset length:sizeof(uint32_t)];
+    [data appendBytes:&dataOffset length:sizeof(uint32_t)];
+    [data appendBytes:&zipSize length:sizeof(uint32_t)];
+    [data appendBytes:&dataSize length:sizeof(uint32_t)];
     return data;
 }
 
