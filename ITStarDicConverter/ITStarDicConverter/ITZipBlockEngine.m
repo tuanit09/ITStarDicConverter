@@ -130,6 +130,7 @@
         bytes = (Byte *)[unarchiver decodeBytesForKey:kSynFileKey returnedLength:&length];
         [self writeBytes:bytes length:length toURL:synFileURL];
 
+        [unarchiver finishDecoding];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [target zipEngineDidParseDataURL:zipDicURL];
