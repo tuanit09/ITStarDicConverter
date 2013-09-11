@@ -70,7 +70,7 @@
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:zipDic];
 
     // Apend info file
-    NSData *infoData = [[NSData dataWithContentsOfURL:dictionary.indexFileURL] compressedData];
+    NSData *infoData = [[NSData dataWithContentsOfURL:dictionary.infoFileURL] compressedData];
     [archiver encodeBytes:infoData.bytes length:[infoData length] forKey:kInfoFileKey];
 
     // Apend indexFile
