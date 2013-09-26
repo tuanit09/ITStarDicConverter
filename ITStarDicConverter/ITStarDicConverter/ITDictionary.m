@@ -152,7 +152,7 @@
 - (void)getInt32:(NSUInteger *)pValue fromBytes:(Byte *)pBytes
 {
     uint32_t rawVal = *(uint32_t *)pBytes;
-    *pValue = (rawVal >> 24) | ((rawVal & 0x00FF0000) >> 16) | ((rawVal & 0x0000FF00) << 8) | ((rawVal & 0x000000FF) << 24);
+    *pValue = ntohl(rawVal);
 }
 - (Byte)getIndex:(NSUInteger *)pIndex length:(NSUInteger *)pLenght fromBytes:(Byte *)pBytes
 {
@@ -242,6 +242,25 @@
 - (void)loadSynFile
 {
 
+}
+
+
+-(NSArray *)wordEntriesSortedByOffset
+{
+    NSMutableArray *sortedWordEntries = [NSMutableArray arrayWithArray:self.wordEntries];
+    [sortedWordEntries sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        ITWordEntry *entry1 = (ITWordEntry *)obj1;
+        ITWordEntry *entry2 = (ITWordEntry *)obj2;
+        if (entry1.offset < entry2.offset) {
+            return NSOrderedAscending;
+        }
+        else if (entry1.offset > entry2.offset)
+        {
+            return NSOrderedDescending;
+        }
+        return NSOrderedSame;
+    }];
+    return sortedWordEntries;
 }
 
 @end

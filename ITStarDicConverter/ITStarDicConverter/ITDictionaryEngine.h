@@ -13,8 +13,8 @@
 
 @protocol ITDictionaryEngineDelegate <NSObject>
 
-- (void)dictionaryEngineWillShortDictionary:(ITDictionary *)dictionary;
-- (void)dictionaryEngineDidShortDictionary:(ITDictionary *) source withResult:(ITDictionary *)destination;
+- (void)dictionaryEngineWillSortDictionary:(ITDictionary *)dictionary;
+- (void)dictionaryEngineDidSortDictionary:(ITDictionary *) source withResult:(ITDictionary *)destination;
 - (void)dictionaryEngineWillSearchInDictionary:(ITDictionary *)dictionary;
 - (void)dictionaryEngineDidSearchInDictionary:(ITDictionary *)dictionary withResult:(NSArray *)results;
 
@@ -22,7 +22,7 @@
 
 @interface ITDictionaryEngine : NSObject
 
-+ (void)shortDictionary:(ITDictionary *)dictionary forTarget:(id<ITDictionaryEngineDelegate>)delegate;
++ (void)sortDictionary:(ITDictionary *)dictionary forTarget:(id<ITDictionaryEngineDelegate>)delegate;
 + (void)searchForWord:(NSString *)word inDictionary:(ITDictionary *)dictionary forTarget:(id<ITDictionaryEngineDelegate>)delegate;
 + (NSString *)meaningForEntry:(ITWordEntry *)entry inDictionary:(ITDictionary *)dictionary;
 + (NSArray *)synonymsForEntry:(ITWordEntry *)entry inDictionary:(ITDictionary *)dictionary;

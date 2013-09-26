@@ -21,6 +21,42 @@
 
 @implementation ITZipBlockEngine
 
++(NSUInteger)entryIndexForOffset:(NSUInteger)offset inWordEntries:(NSArray *)wordEntries minIndex:(NSUInteger) minIdx maxIndex:(NSUInteger)maxIdx
+{
+    ITWordEntry *entryMin = [wordEntries objectAtIndex:minIdx];
+    ITWordEntry *entryMax = [wordEntries objectAtIndex:maxIdx];
+    ITWordEntry *entryMid;
+    NSUInteger midIdx;
+    NSUInteger deltaMM;
+
+    do {
+        deltaMM = entryMax.offset - entryMin.offset;
+
+        midIdx = ((offset - entryMin.offset) * (maxIdx - minIdx) + minIdx *(deltaMM)) / deltaMM;
+        entryMid = [wordEntries objectAtIndex:midIdx];
+
+        if (offset > entryMid.offset) {
+            minIdx = midIdx;
+        }
+        else if (offset < entryMid.offset)
+        {
+            maxIdx = midIdx;
+        }
+        else
+        {
+            break;
+        }
+
+    } while (YES);
+    return midIdx;
+}
+
++(NSArray *)zipBlockEntriesForDictionary:(ITDictionary *)dictionary threshold:(NSInteger)maxDataBlockSize
+{
+
+    return nil;
+}
+
 +(void)zipDictionary:(ITDictionary *)dictionary threshold:(NSInteger)maxDataBlockSize forTarget:(id<ITZipBlockEngineDelegate>)target
 {
     [target zipEngineWillZipDictionary:dictionary];

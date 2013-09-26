@@ -68,19 +68,19 @@
 {
     self.convertingLabel.stringValue = @"dictionary loaded";
     [self.activityIndicator stopAnimation:nil];
-    [ITDictionaryEngine shortDictionary:dic forTarget:self];
+    [ITDictionaryEngine sortDictionary:dic forTarget:self];
 }
 
 #pragma -mark Dictionary Engine Delegate
--(void)dictionaryEngineWillShortDictionary:(ITDictionary *)dictionary
+-(void)dictionaryEngineWillSortDictionary:(ITDictionary *)dictionary
 {
-    self.convertingLabel.stringValue = @"shorting dictionary......";
+    self.convertingLabel.stringValue = @"sorting dictionary......";
     [self.activityIndicator startAnimation:nil];
 }
 
--(void)dictionaryEngineDidShortDictionary:(ITDictionary *)source withResult:(ITDictionary *)destination
+-(void)dictionaryEngineDidSortDictionary:(ITDictionary *)source withResult:(ITDictionary *)destination
 {
-    self.convertingLabel.stringValue = @"dictionary shorted";
+    self.convertingLabel.stringValue = @"dictionary sorted";
     [self.activityIndicator stopAnimation:nil];
     [ITZipBlockEngine zipDictionary:destination threshold:kDataSizeLimit forTarget:self];
 }

@@ -12,6 +12,7 @@
 #import "ITWordEntry.h"
 #import "NSData+ZIP.h"
 
+
 @implementation ITDictionaryEngine
 
 
@@ -95,35 +96,36 @@
     return nil;
 }
 
-+ (void)shortDictionary:(ITDictionary *)dictionary forTarget:(id<ITDictionaryEngineDelegate>)delegate
++ (void)sortDictionary:(ITDictionary *)dictionary forTarget:(id<ITDictionaryEngineDelegate>)delegate
 {
-    [delegate dictionaryEngineWillShortDictionary:dictionary];
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSMutableData *dicData = [[NSMutableData alloc] initWithCapacity:[[NSData dataWithContentsOfURL:dictionary.dataFileURL] length]];
-        NSFileHandle *file = [NSFileHandle fileHandleForReadingFromURL:dictionary.dataFileURL error:nil];
-        if (file) {
-            for (ITWordEntry *wordEntry in dictionary.wordEntries) {
-                [file seekToFileOffset:wordEntry.offset];
-                wordEntry.offset = [dicData length]; // update to new offset
-                [dicData appendData:[file readDataOfLength:wordEntry.length]];
-            }
-        }
-        [file closeFile];
-        if ([dicData length]) {
-            NSLog(@"data length = %lu", [[dicData compressedData] length]);
-            if([dicData writeToURL:dictionary.dataFileURL atomically:YES]) // overwrite data file
-            {
-                NSLog(@"overwrite data file OK");
-            }
-            else
-            {
-                NSLog(@"failed to overwrite data file");
-            }
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [delegate dictionaryEngineDidShortDictionary:dictionary withResult:dictionary];
-        });
-    });
+    [delegate dictionaryEngineWillSortDictionary:dictionary];
+    [delegate dictionaryEngineDidSortDictionary:dictionary withResult:dictionary];
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        NSMutableData *dicData = [[NSMutableData alloc] initWithCapacity:[[NSData dataWithContentsOfURL:dictionary.dataFileURL] length]];
+//        NSFileHandle *file = [NSFileHandle fileHandleForReadingFromURL:dictionary.dataFileURL error:nil];
+//        if (file) {
+//            for (ITWordEntry *wordEntry in dictionary.wordEntries) {
+//                [file seekToFileOffset:wordEntry.offset];
+//                    wordEntry.offset = [dicData length]; // update to new offset
+//                [dicData appendData:[file readDataOfLength:wordEntry.length]];
+//            }
+//        }
+//        [file closeFile];
+//        if ([dicData length]) {
+//            NSLog(@"data length = %lu", [[dicData compressedData] length]);
+//            if([dicData writeToURL:dictionary.dataFileURL atomically:YES]) // overwrite data file
+//            {
+//                NSLog(@"overwrite data file OK");
+//            }
+//            else
+//            {
+//                NSLog(@"failed to overwrite data file");
+//            }
+//        }
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [delegate dictionaryEngineDidSortDictionary:dictionary withResult:dictionary];
+//        });
+//    });
 }
 
 @end

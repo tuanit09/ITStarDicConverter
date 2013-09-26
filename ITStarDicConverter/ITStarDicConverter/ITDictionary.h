@@ -60,4 +60,6 @@
  */
 - (void)loadDictionaryForTarget:(id<ITDictionaryDelegate>)delegate;
 
+-(NSArray *)wordEntriesSortedByOffset;
+
 @end
